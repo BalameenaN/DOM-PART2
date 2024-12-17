@@ -72,7 +72,7 @@ menuLinks.forEach((links) => {
 })
 console.log(topMenuEl);
 
-//LAB2
+//LAB2--------------------------------------------------
 //Part 3: Creating the Submenu
 //step1 --- cache the  element in a variable 
 let subMenuEl = document.querySelector("#sub-menu");
@@ -93,7 +93,6 @@ subMenuEl.style.top = 0;
 
 const topMenuLinks = document.querySelectorAll("#top-menu a");
 
-
 //event listener to topMenuEl
 topMenuEl.addEventListener('click', function (event) {
 
@@ -103,7 +102,6 @@ topMenuEl.addEventListener('click', function (event) {
     return;
   }
   console.log(event.target.textContent);
-
 
 })
 
@@ -121,41 +119,42 @@ function buildSubmenu(sub) {
   })
 }
 let hEl = document.querySelector("h1");
-//
+
+//event listener should add the active class to the <a> element
 topMenuLinks.forEach((link) => {
 
   link.addEventListener('click', function (event) {
 
     const activeLink = menuLinks.find((link) => link.text === event.target.textContent);
 
-
+    //event listener should remove the active class 
     topMenuLinks.forEach(link => link.classList.remove('active'));
     
+    //Part 5: Adding Submenu Interaction
     event.target.classList.add('active');
     if (event.target.classList.contains("active") && activeLink.subLinks) {
     
       buildSubmenu(activeLink.subLinks);
-      
+    
+      //console.log("inside if");
 
-      console.log("inside if");
-
+     //set the CSS top property of subMenuEl to 100%.
+     //Ensure that clicking CATALOG, ORDERS, etc. shows the submenu bar, and that clicking them again hides it
       if(subMenuEl.style.top === '100%'){
         subMenuEl.style.top = 0;
       } else {
         subMenuEl.style.top = '100%';
       }
-      
     } 
     else {
       subMenuEl.style.top = 0;
       hEl.textContent = event.target.textContent;
-
       console.log("else");
     }
-
   })
 })
 
+//delegated 'click' event listener to subMenuEl.
 subMenuEl.addEventListener("click",function(event){
   event.preventDefault();
   if(event.target.tagName !== 'A'){
@@ -166,8 +165,7 @@ subMenuEl.addEventListener("click",function(event){
   subMenuEl.style.top = 0;
   topMenuLinks.forEach(link => link.classList.remove('active'));
   
-  
-  
+  //Update the contents of mainEl, within an <h1>, to the contents of the <a> element 
   hEl.textContent = event.target.textContent;
 
 })
